@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './App.css';
-import Product from './Product';
 import Login from './Login';
 import emailjs from "@emailjs/browser";
 
