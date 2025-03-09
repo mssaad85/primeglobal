@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Login from './Login';
 import emailjs from "@emailjs/browser";
+import product1 from './assets/images/logomain.png';
 
 
 // Product Data (35 products)
@@ -288,10 +289,16 @@ const products = [
   }
 ];
 
+const users = [
+  { username: 'admin', password: '921161789Acca12', name: 'John Doe' },
+  { username: 'user2', password: 'password2', name: 'Jane Smith' },
+];
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [buyerDetails, setBuyerDetails] = useState({ company: "", address: "", phone: "" });
+  const [userName, setUserName] = useState('');
+  const [loginDateTime, setLoginDateTime] = useState('');
+  const [buyerDetails, setBuyerDetails] = useState({ company: '', address: '', phone: '' });
   const [orderQuantities, setOrderQuantities] = useState({});
 
   // Handle buyer details input
@@ -331,6 +338,7 @@ function App() {
 
   // Function to send email via EmailJS
   const sendEmail = (buyerDetails, orderedProducts) => {
+    const currentDateTime = new Date().toLocaleString(); // Get the current date and time
     const templateParams = {
       company_name: buyerDetails.company,
       address: buyerDetails.address,
@@ -338,6 +346,8 @@ function App() {
       order_details: orderedProducts
         .map((p) => `${p.name} - ${p.quantity} boxes ($${p.total})`)
         .join("\n"),
+      user_name: userName, // Send the user's name
+      order_date_time: currentDateTime, // Send the current date and time
     };
 
     emailjs
@@ -359,14 +369,24 @@ function App() {
       );
   };
 
+  const handleLogin = (username, password) => {
+    const user = users.find(u => u.username === username && u.password === password);
+    if (user) {
+      setIsAuthenticated(true);
+      setUserName(user.name);
+      setLoginDateTime(new Date().toLocaleString()); // Set the login time
+    } else {
+      alert('Invalid username or password');
+    }
+  };
+
   return (
     <div className="App">
       {isAuthenticated ? (
         <>
-          {/* Header Section */}
           <header>
             <div className="company-logo">
-              <img src="your-logo.png" alt="Company Logo" />
+              <img src={product1} alt="Company Logo" style={{ width: '150px', height: 'auto' }} />
             </div>
             <div className="company-contact">
               <p>📞 +1 469 267 8008</p>
@@ -375,6 +395,10 @@ function App() {
           </header>
 
           <h1>Product Order Form</h1>
+          <div className="user-info">
+            <p><strong>Welcome, {userName}!</strong></p>
+            <p><strong>Login Time:</strong> {loginDateTime}</p>
+          </div>
 
           {/* Buyer Details Form */}
           <div className="buyer-details">
@@ -409,7 +433,12 @@ function App() {
                   </div>
                   <div className="product-quantity">
                     <label>Order Quantity:</label>
-                    <input type="number" min="0" placeholder="Enter quantity" onChange={(e) => handleQuantityChange(product.id, e.target.value)} />
+                    <input
+                      type="number"
+                      min="0"
+                      placeholder="Enter quantity"
+                      onChange={(e) => handleQuantityChange(product.id, e.target.value)}
+                    />
                   </div>
                 </div>
               </div>
@@ -422,7 +451,7 @@ function App() {
           </div>
         </>
       ) : (
-        <Login onLogin={() => setIsAuthenticated(true)} />
+        <Login onLogin={handleLogin} />
       )}
     </div>
   );

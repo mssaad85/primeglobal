@@ -6,15 +6,7 @@ function Login({ onLogin }) {
   const [error, setError] = useState('');
 
   const handleLogin = () => {
-    // Hardcoded username and password (you can replace this with backend authentication)
-    const validUsername = "admin";
-    const validPassword = "12345";
-
-    if (username === validUsername && password === validPassword) {
-      onLogin();
-    } else {
-      setError("Invalid username or password");
-    }
+    onLogin(username, password);  // Pass the username and password to the parent
   };
 
   return (
