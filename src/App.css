@@ -1,38 +1,303 @@
-.App {
-  text-align: center;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+/* General styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Main container */
+.App {
+  width: 90%;
+  max-width: 1200px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+/* Header section */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 20px;
+}
+
+header .company-logo {
+  max-width: 150px;
+}
+
+header .company-contact p {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Form header */
+h1 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Buyer details section */
+.buyer-details {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.buyer-details legend {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.buyer-details .form-group {
+  margin-bottom: 15px;
+}
+
+.buyer-details label {
+  font-size: 14px;
+  color: #333;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.buyer-details input,
+.buyer-details textarea {
+  padding: 10px;
+  font-size: 14px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.buyer-details input:focus,
+.buyer-details textarea:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+/* Product details form section */
+.product-order {
   display: flex;
   flex-direction: column;
+  gap: 20px;
+}
+
+.product-order .product {
+  display: flex;
   align-items: center;
+  gap: 20px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Image on the left side of the details */
+.product .product-image {
+  flex: 0 0 150px;  /* Fixed size for image */
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+.product img {
+  max-width: 100%;
+  max-height: 150px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.product img:hover {
+  transform: scale(1.05);
+}
+
+/* Details section on the right of the image */
+.product .product-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.product .product-details .product-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.product .product-details .product-price,
+.product .product-details .product-quantity {
+  font-size: 14px;
+  color: #333;
+}
+
+.product .product-quantity input {
+  width: 70px;
+  padding: 5px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.product .product-quantity input:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+/* Product information layout */
+.product-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 20px;
+  width: 100%;
+}
+
+.product-details .product-name {
+  grid-column: span 4;
+}
+
+.product-details label {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.product-details input {
+  padding: 8px;
+  font-size: 14px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.product-details input:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+/* Button styles */
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007BFF;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:focus {
+  outline: 2px solid #0056b3;
+}
+
+/* Make form responsive */
+@media (max-width: 768px) {
+  /* Adjust layout for smaller screens */
+  .product-order {
+    flex-direction: column;
   }
-  to {
-    transform: rotate(360deg);
+
+  .product .product-details {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .product-details {
+    grid-template-columns: 1fr;
+  }
+
+  .product-details .product-name {
+    text-align: center;
+  }
+}
+
+/* Login Form */
+.login-container {
+  width: 100%;
+  max-width: 350px; /* Adjust max-width for better alignment */
+  margin: 100px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  background-color: #fff; /* Ensure background color */
+  box-sizing: border-box; /* Include padding and borders in width */
+  overflow: hidden; /* Prevent overflow */
+}
+
+/* Ensure input and button are properly contained */
+.login-container input,
+.login-container button {
+  width: 100%;
+  padding: 12px; /* Increased padding for better feel */
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box; /* Ensures padding and border fit within the element */
+}
+
+.login-container button {
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+}
+
+.login-container button:hover {
+  background-color: #218838;
+}
+.error {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* Make the form responsive */
+@media (max-width: 400px) {
+  .login-container {
+    width: 90%; /* Adjust width for smaller screens */
+    padding: 15px;
+  }
+}
+
+/* Media Queries for Very Small Screens */
+@media (max-width: 400px) {
+  .App {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .product-order {
+    gap: 16px;
   }
 }
